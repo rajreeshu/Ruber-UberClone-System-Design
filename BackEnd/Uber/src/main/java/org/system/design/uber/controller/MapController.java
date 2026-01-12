@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.system.design.uber.model.CoordinateModel;
 import org.system.design.uber.model.TilesInfoModel;
 import org.system.design.uber.service.H3Service;
+import org.system.design.uber.service.RedisService;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,9 +28,13 @@ public class MapController {
     @Autowired
     private H3Service h3Service;
 
+    @Autowired
+    private RedisService redisService;
+
     @GetMapping("/tiles/info")
     public ResponseEntity<?> getLocationTilesInfo(@RequestParam double latitude, @RequestParam double longitude) {
         try {
+            redisService.deleteAll();
             long tileId = h3Service.getH3TileId(new CoordinateModel(latitude, longitude));
             List<CoordinateModel> tileBoundary = h3Service.getTileBoundary(tileId);
             List<TilesInfoModel> nearByTiles = h3Service.getNearbyTilesInfo(tileId, 1);
