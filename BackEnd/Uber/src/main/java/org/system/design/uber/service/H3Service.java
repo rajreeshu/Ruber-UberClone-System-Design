@@ -29,7 +29,7 @@ public class H3Service {
     public List<TilesInfoModel> getNearbyTilesInfo(long tileId, int k) {
         return this.getNearbyTileIds(tileId, k).stream().filter(Objects::nonNull).map(nearbyTileId -> {
             List<CoordinateModel> nearbyTileBoundary = getTileBoundary(nearbyTileId);
-            return new TilesInfoModel(nearbyTileId, nearbyTileBoundary, null);
+            return new TilesInfoModel(String.valueOf(nearbyTileId), nearbyTileBoundary, null);
         }).filter(Objects::nonNull).toList();
     }
 

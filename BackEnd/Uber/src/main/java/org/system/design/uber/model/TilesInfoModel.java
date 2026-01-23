@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TilesInfoModel {
-    private long tileNumber;
+    private String tileNumber;
     private List<CoordinateModel> tilesCoordinates;
     private List<TilesInfoModel> nearbyTiles;
 }

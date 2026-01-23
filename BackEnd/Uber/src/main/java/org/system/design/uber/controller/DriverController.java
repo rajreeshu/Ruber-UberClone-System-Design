@@ -41,8 +41,8 @@ public class DriverController {
     }
 
     @GetMapping("/available")
-    public ResponseEntity<?> getNearestDrivers(@RequestParam long h3TileId) {
-        List<DriverModel> driverList = availabilityService.getNearByAvailableDrivers(h3TileId);
+    public ResponseEntity<?> getNearestDrivers(@RequestParam long h3TileId, @RequestParam int gridSize) {
+        List<DriverModel> driverList = availabilityService.getNearByAvailableDrivers(h3TileId, gridSize);
         return ResponseEntity.ok(driverList);
     }
 }

@@ -32,13 +32,16 @@ public class MapController {
     private RedisService redisService;
 
     @GetMapping("/tiles/info")
-    public ResponseEntity<?> getLocationTilesInfo(@RequestParam double latitude, @RequestParam double longitude) {
+    public ResponseEntity<?> getLocationTilesInfo(@RequestParam double latitude, @RequestParam double longitude, @RequestParam int gridSize) {
         try {
-            redisService.deleteAll();
+            if(gridSize ==1){
+                redisService.deleteAll(); // Delete all Drivers for 1st request for Testing purpose.
+            }
+
             long tileId = h3Service.getH3TileId(new CoordinateModel(latitude, longitude));
             List<CoordinateModel> tileBoundary = h3Service.getTileBoundary(tileId);
-            List<TilesInfoModel> nearByTiles = h3Service.getNearbyTilesInfo(tileId, 1);
-            return ResponseEntity.ok(new TilesInfoModel(tileId, tileBoundary, nearByTiles));
+            List<TilesInfoModel> nearByTiles = h3Service.getNearbyTilesInfo(tileId, gridSize);
+            return ResponseEntity.ok(new TilesInfoModel(String.valueOf(tileId), tileBoundary, nearByTiles));
         } catch (IOException e) {
             logger.error("Error in fetching tile info for location: {}, {}", latitude, longitude, e);
             return ResponseEntity.internalServerError().body("Error in fetching tile info");

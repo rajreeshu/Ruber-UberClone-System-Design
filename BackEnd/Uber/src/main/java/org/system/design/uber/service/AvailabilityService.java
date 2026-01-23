@@ -17,9 +17,9 @@ public class AvailabilityService {
     @Autowired
     private DriverService driverService;
 
-    public List<DriverModel> getNearByAvailableDrivers(long h3TileId) {
+    public List<DriverModel> getNearByAvailableDrivers(long h3TileId, int gridSize) {
         // get nearby tiles
-        List<Long> h3Tileids = h3Service.getNearbyTileIds(h3TileId,1);
+        List<Long> h3Tileids = h3Service.getNearbyTileIds(h3TileId, gridSize);
         List<DriverModel> availableDrivers = new ArrayList<>();
         for(Long nearbyTileId : h3Tileids){
             List<DriverModel> driversInNearbyTile = driverService.driverInTile(nearbyTileId);
