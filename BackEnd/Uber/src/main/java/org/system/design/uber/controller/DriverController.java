@@ -13,7 +13,7 @@ import org.system.design.uber.service.RedisService;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/driver")
 @CrossOrigin(
         origins = "*",

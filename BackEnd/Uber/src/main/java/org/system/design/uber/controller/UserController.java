@@ -11,8 +11,9 @@ import org.system.design.uber.service.H3Service;
 
 import java.util.List;
 
+
+@RestController
 @RequestMapping("/user")
-@Controller
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",
@@ -22,6 +23,11 @@ public class UserController {
 
     @Autowired
     private AvailabilityService availabilityService;
+
+    @GetMapping("/test")
+    public ResponseEntity<String> testEndpoint() {
+        return ResponseEntity.ok("User Controller is working!");
+    }
 
 
 }

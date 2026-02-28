@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/map")
-@Controller
+@RestController
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",
