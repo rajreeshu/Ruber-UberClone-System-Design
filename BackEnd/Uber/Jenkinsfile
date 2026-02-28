@@ -24,7 +24,7 @@ pipeline {
                 dir('BackEnd/Uber'){
                     sh 'mvn clean package -DskipTests'
                 }
-                sh whoami
+                sh 'whoami'
             }
         }
 
