@@ -6,9 +6,9 @@ pipeline {
         ECR_URL = "072510400111.dkr.ecr.ap-south-1.amazonaws.com/ruber-backend"
     }
 
-    // tools {
-    //     maven 'Maven-3.9.12'   // Configure in Jenkins Global Tools
-    // }
+    tools {
+        maven 'Maven-3.9.12'   // Configure in Jenkins Global Tools
+    }
 
     stages {
 
