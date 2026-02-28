@@ -3,12 +3,12 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "rajreeshu/ruber-backend-aws"
-        DOCKER_TAG = "latest"
+        ECR_URL = "072510400111.dkr.ecr.ap-south-1.amazonaws.com/ruber-backend"
     }
 
-    tools {
-        maven 'Maven-3.9.12'   // Configure in Jenkins Global Tools
-    }
+    // tools {
+    //     maven 'Maven-3.9.12'   // Configure in Jenkins Global Tools
+    // }
 
     stages {
 
@@ -31,7 +31,20 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('BackEnd/Uber') {
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                    sh "docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} ."
+                }
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh """
+                    aws ecr get-login-password --region ap-south-1 | \
+                    docker login --username AWS --password-stdin ${ECR_URL}
+
+                    docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${ECR_URL}:${BUILD_NUMBER}
+                    docker push ${ECR_URL}:${BUILD_NUMBER}
+                    """
                 }
             }
         }
