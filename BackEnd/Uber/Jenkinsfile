@@ -39,8 +39,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                    aws ecr get-login-password --region ap-south-1 | \
-                    docker login --username AWS --password-stdin ${ECR_URL}
+                    // aws ecr get-login-password --region ap-south-1 | \
+                    // docker login --username AWS --password-stdin ${ECR_URL}
 
                     docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${ECR_URL}:${BUILD_NUMBER}
                     docker push ${ECR_URL}:${BUILD_NUMBER}
