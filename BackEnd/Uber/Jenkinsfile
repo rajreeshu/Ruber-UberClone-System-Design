@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "rajreeshu/ruber-backend-aws"
-        ECR_URL = "072510400111.dkr.ecr.ap-south-1.amazonaws.com/ruber-backend"
+        ECR_URL = "618060700330.dkr.ecr.ap-south-1.amazonaws.com/ruber/backend-app"
     }
 
     tools {
