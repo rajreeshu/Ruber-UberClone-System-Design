@@ -17,3 +17,6 @@ spec:
         image: IMAGE_PLACEHOLDER
         ports:
         - containerPort: 8080
+        envFrom:
+        - secretRef:
+            name: redis-secret
