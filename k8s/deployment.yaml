@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ruber-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ruber
+  template:
+    metadata:
+      labels:
+        app: ruber
+    spec:
+      containers:
+      - name: ruber-container
+        image: IMAGE_PLACEHOLDER
+        ports:
+        - containerPort: 8080
