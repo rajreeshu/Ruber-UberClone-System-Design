@@ -19,4 +19,4 @@ spec:
         - containerPort: 8080
         envFrom:
         - secretRef:
-            name: redis-secret
+            name: secrets
