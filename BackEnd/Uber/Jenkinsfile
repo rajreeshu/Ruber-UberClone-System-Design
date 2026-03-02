@@ -56,8 +56,8 @@ pipeline {
 
                     sed -i 's|IMAGE_PLACEHOLDER|618060700330.dkr.ecr.ap-south-1.amazonaws.com/ruber/backend-app:${BUILD_NUMBER}|g' k8s/deployment.yaml
 
-                    kubectl apply -f k8s/deployment.yaml
-                    kubectl apply -f k8s/service.yaml
+                    kubectl apply -f k8s/backend/deployment.yaml
+                    kubectl apply -f k8s/backend/service.yaml
                     """
                 }
             }
