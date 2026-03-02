@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("/test")
     public ResponseEntity<String> testEndpoint() {
-        return ResponseEntity.ok("User Controller is working!");
+        return ResponseEntity.ok("User Controller is working Fine!");
     }
 
 
