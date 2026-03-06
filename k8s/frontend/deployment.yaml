@@ -16,4 +16,4 @@ spec:
       - name: ruber-frontend
         image: IMAGE_PLACEHOLDER
         ports:
-        - containerPort: 80
+        - containerPort: 4200
