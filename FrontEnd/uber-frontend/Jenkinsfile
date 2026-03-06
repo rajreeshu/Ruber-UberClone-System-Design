@@ -54,7 +54,7 @@ pipeline {
                     sh """
                     aws eks update-kubeconfig --region ap-south-1 --name fixed-cluster-2
 
-                    sed -i 's|IMAGE_PLACEHOLDER|${DOCKER_IMAGE}:${BUILD_NUMBER}|g' k8s/frontend/deployment.yaml
+                    sed -i 's|IMAGE_PLACEHOLDER|${ECR_URL}:${BUILD_NUMBER}|g' k8s/frontend/deployment.yaml
 
                     kubectl apply -f k8s/frontend/deployment.yaml
                     kubectl apply -f k8s/frontend/service.yaml
