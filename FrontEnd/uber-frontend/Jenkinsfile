@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "rajreeshu/ruber-frontend-aws"
+        ECR_URL = "618060700330.dkr.ecr.ap-south-1.amazonaws.com/ruber/frontend-app"
+    }
+
+    // tools {
+    //     maven 'Maven-3.9.12'   // Configure in Jenkins Global Tools
+    // }
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', 
+                    url: 'https://github.com/rajreeshu/Ruber-UberClone-System-Design.git'
+            }
+        }
+
+        // stage('Build with Maven') {
+        //     steps {
+        //         dir('BackEnd/Uber'){
+        //             sh 'mvn clean package -DskipTests'
+        //         }
+        //         sh 'whoami'
+        //     }
+        // }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('FrontEnd/Uber') {
+                    sh "docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} ."
+                }
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh """
+                    aws ecr get-login-password --region ap-south-1 | \
+                    docker login --username AWS --password-stdin ${ECR_URL}
+
+                    docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${ECR_URL}:${BUILD_NUMBER}
+                    docker push ${ECR_URL}:${BUILD_NUMBER}
+                    """
+                }
+            }
+        }
+        // stage('Deploy to EKS') {
+        //     steps {
+        //         script {
+        //             sh """
+        //             aws eks update-kubeconfig --region ap-south-1 --name fixed-cluster-2
+
+        //             sed -i 's|IMAGE_PLACEHOLDER|618060700330.dkr.ecr.ap-south-1.amazonaws.com/ruber/backend-app:${BUILD_NUMBER}|g' k8s/backend/deployment.yaml
+
+        //             kubectl apply -f k8s/backend/deployment.yaml
+        //             kubectl apply -f k8s/backend/service.yaml
+        //             """
+        //         }
+        //     }
+        // }
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed!"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+#map {
+  width: 100%;
+  min-height: 500px; /* Keep current height as minimum */
+  height: 100vh; /* Fill the whole screen if larger */
+}
+
+.car-marker-icon{
+    width: 35px !important;
+    height: 20px !important;
+} 
