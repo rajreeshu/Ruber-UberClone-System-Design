@@ -7,5 +7,5 @@ spec:
   selector:
     app: ruber
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 8080
